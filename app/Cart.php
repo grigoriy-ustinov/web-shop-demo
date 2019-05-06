@@ -56,5 +56,15 @@ class Cart
             }
         }
     }
+    public function find($id)
+    {
+        if($this->items)
+        {
+            if(array_key_exists($id, $this->items))
+            {
+                return $this->items[$id]['item'];
+            }
+        }
+    }
 
 }
