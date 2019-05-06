@@ -122,7 +122,7 @@ class ItemsController extends Controller
         $cart = new Cart($oldCart);
         $cart->add($item, $item->id);
         $request->session()->put('cart', $cart);
-        return redirect('/shop')->with('success', 'Item '. $id .' has been added to the cart');
+        return redirect('/shop')->with('success', 'Item '. $item->name .' has been added to the cart');
     }
 
     public function showCart()
@@ -136,9 +136,11 @@ class ItemsController extends Controller
     {
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
+        $itemToRemove = $cart->find($id);
+
         $cart->remove($id);
         $request->session()->put('cart', $cart);
-        return redirect('/checkout')->with('success', 'Item '. $id .' has been removed from the cart');
+        return redirect('/checkout')->with('success', 'Item '. $itemToRemove['name'] .' has been removed from the cart');
     }
 
 
